@@ -14,13 +14,31 @@ def say(text):
     else:
         print(text)
         input()
+#Item class
+class Item:
+    def __init__(self, name, healing, quantity):
+        self.name = name
+        self.healing = healing
+        self.quantity = quantity
+    def use_healing_item(self):
+        # Depending on the item it will heal x HP
+        if self.quantity != 0: 
+            self.quantity = self.quantity - 1
+            return self.healing
+        else: 
+            say(f'No {self.name} left...')
+            return 0
+        
+# Item List For Now
+vulnerary = Item('Vulnerary',20,3)
 
 #Lord class
 class Lord:
-    def __init__(self, name, maxHealth):
+    def __init__(self, name, maxHealth): 
         self.name = name
         self.maxHealth = maxHealth
         self.health = maxHealth
+        self.inventory = [Item('Vulnerary',20,3)]
 
     # Checks that player never has more than the max health
     def limit_of_health(self):
@@ -36,14 +54,11 @@ class Lord:
         
     # Method 2: Player healing
     def heal(self, item):
-        if item != 0: 
-            healing = 20
-            say([f'{self.name} uses a vulnerary!', f'{self.name} recovers {healing} HP!'])
-            self.health += healing
-            self.limit_of_health()
-            return item - 1
-        else: 
-            say(f'No vulnerary left... ')
+        healing = item.use_healing_item()
+        if healing != 0:
+            say([f'{self.name} uses a {item.name}!', f'{self.name} recovers {healing} HP!'])
+        self.health += healing
+        self.limit_of_health()
 
 #Enemy class
 class Enemy:
@@ -121,7 +136,6 @@ def combatSystem(player, enemy):
 #character_1 = 'Eliwood' # Eliwood has a rapier
 # Lyn character: Lyn uses as primary weapon a sword
 player = Lord('Lyn', 40)
-vulnerary = 3
 #character_3 = 'Hector' # Hector has an axe
 
 #Enemy Number 3: Bandits
