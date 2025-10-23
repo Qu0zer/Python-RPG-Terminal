@@ -1,4 +1,4 @@
-# INTRODUCTION
+ # INTRODUCTION
 
 This is my first big python project 🐍! I'm making a mini python-rpg-terminal from the very start so I can improve my skills and I'll upgrade as much as I consider.
 
